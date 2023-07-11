@@ -1,0 +1,43 @@
+08 July , 2023
+Find triplets with zero sum
+Given an array arr[] of n integers. Check whether it contains a triplet that sums up to zero. 
+
+Note: Return 1, if there is at least one triplet following the condition else return 0.
+
+Example 1:
+
+//Input: n = 5, arr[] = {0, -1, 2, -3, 1}
+//Output: 1
+//Explanation: 0, -1 and 1 forms a triplet
+with sum equal to 0.
+
+SOLUTION:-
+
+class Solution
+{
+    public:
+    //Function to find the smallest positive number missing from the array.
+    int missingNumber(int arr[], int n) 
+    { 
+        // Your code here
+           for(int i=0;i<n;i++)
+        {
+            if(arr[i]>0&&arr[i]<=n)
+            {
+                int ind=arr[i]-1;
+                if(arr[ind]!=arr[i])
+                {
+                    swap(arr[i],arr[ind]);
+                    i--;
+                }
+            }
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(arr[i]!=i+1)
+            return i+1;
+        }
+        return n+1;
+    
+    } 
+};
