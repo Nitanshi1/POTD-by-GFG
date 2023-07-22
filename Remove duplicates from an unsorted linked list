@@ -1,0 +1,53 @@
+22 JULY,2023
+Remove duplicates from an unsorted linked list
+
+Example 1:
+
+Input:
+N = 4
+value[] = {5,2,2,4}
+Output: 5 2 4
+Explanation:Given linked list elements are
+5->2->2->4, in which 2 is repeated only.
+So, we will delete the extra repeated
+elements 2 from the linked list and the
+resultant linked list will contain 5->2->4
+
+SOLUTION;-
+
+struct Node {
+  int data;
+  struct Node *next;
+  Node(int x) {
+    data = x;
+    next = NULL;
+  }
+};
+*/
+
+
+class Solution
+{
+    public:
+    //Function to remove duplicates from unsorted linked list.
+    Node * removeDuplicates( Node *head) 
+    {
+     // your code goes here
+     unordered_map<int,int> mp;
+        Node *temp=head,*prev=temp;
+        while(temp){
+            int val=temp->data;
+            mp[val]++;
+            if(mp[val]>1){
+                while(temp!=nullptr && val==temp->data){
+                    temp=temp->next;
+                }
+                prev->next=temp;
+            }else{
+                prev=temp;
+                temp=temp->next;   
+            }
+        }
+        return head;
+    }
+};
