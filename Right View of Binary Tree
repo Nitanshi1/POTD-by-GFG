@@ -1,0 +1,82 @@
+Right View of Binary Tree
+24 July ,2023
+
+Given a Binary Tree, find Right view of it. Right view of a Binary Tree is set of nodes visible when tree is viewed from right side.
+
+Right view of following tree is 1 3 7 8.
+
+          1
+       /     \
+     2        3
+   /   \      /    \
+  4     5   6    7
+    \
+     8
+
+Example 1:
+
+Input:
+       1
+    /    \
+   3      2
+Output: 1 2
+
+Solution:-
+
+/* A binary tree node has data, pointer to left child
+   and a pointer to right child 
+struct Node
+{
+    int data;
+    struct Node* left;
+    struct Node* right;
+    
+    Node(int x){
+        data = x;
+        left = right = NULL;
+    }
+}; */
+
+// Should return  right view of tree
+class Solution
+{
+    public:
+    //Function to return list containing elements of right view of binary tree.
+    vector<int> rightView(Node *root)
+    {
+       // Your Code here
+          {
+        queue<Node*>q;
+        q.push(root);
+        vector<vector<int>>v;
+        vector<int>ans;
+        while(!q.empty())
+        {
+            int si=q.size();
+            vector<int>v2;
+            while(si--)
+            {
+                
+                Node *f=q.front();
+                q.pop();
+                v2.push_back(f->data);
+                if(f->left!=NULL)
+                {
+                    q.push(f->left);
+                }
+                if(f->right!=NULL)
+                {
+                    q.push(f->right);
+                }
+            }
+            v.push_back(v2);
+        }
+        for(int i=0;i<v.size();i++)
+        {
+            ans.push_back(v[i][v[i].size()-1]);
+        }
+        return ans;
+          }
+    }
+};
+
