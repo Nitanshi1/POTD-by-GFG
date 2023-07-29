@@ -1,0 +1,72 @@
+Level order traversal in spiral form
+
+25 July, 2023
+
+Given a binary tree and the task is to find the spiral order traversal of the tree.
+
+Spiral order Traversal mean: Starting from level 0 for root node, for all the even levels we print the node's value from right to left and for all the odd levels we print the node's value from left to right. 
+
+For below tree, function should return 1, 2, 3, 4, 5, 6, 7.
+Example 1:
+
+Input:
+      1
+    /   \
+   3     2
+Output:1 3 2
+SOLUTION:_
+
+
+/* A binary tree node has data, pointer to left child
+   and a pointer to right child  
+struct Node
+{
+    int data;
+    struct Node* left;
+    struct Node* right;
+    
+    Node(int x){
+        data = x;
+        left = right = NULL;
+    }
+}; */
+
+
+//Function to return a list containing the level order traversal in spiral form.
+vector<int> findSpiral(Node *root)
+{
+    //Your code here
+    if(!root) return {};
+    vector<int> ans;
+    
+    queue<Node*> q;
+    
+    ans.push_back(root->data);
+    
+    if(root->left) q.push(root->left);
+    if(root->right) q.push(root->right);
+    
+    bool left = true;
+    
+    while(!q.empty()) {
+        int size = q.size();
+        vector<int> temp;
+        while(size--) {
+            Node* front = q.front();
+            q.pop(); 
+            temp.push_back(front->data);
+            if(front->left) q.push(front->left);
+            if(front->right) q.push(front->right);
+        }
+        
+        if(!left) {
+            reverse(temp.begin(), temp.end());
+        }
+        left = !left;
+        ans.insert(ans.end(), temp.begin(), temp.end());
+    }
+    
+    return ans;
+     }
+   
+   
