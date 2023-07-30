@@ -1,0 +1,88 @@
+Inorder Successor in BST
+30 July,2023
+Given a BST, and a reference to a Node x in the BST. Find the Inorder Successor of the given node in the BST.
+ 
+SOLUTION:
+Example 1:
+
+Input:
+      2
+    /   \
+   1     3
+K(data of x) = 2
+Output: 3 
+Explanation: 
+Inorder traversal : 1 2 3 
+Hence, inorder successor of 2 is 3.
+
+Given a BST, and a reference to a Node x in the BST. Find the Inorder Successor of the given node in the BST.
+ 
+
+struct Node {
+    int data;
+    Node *left;
+    Node *right;
+
+    Node(int val) {
+        data = val;
+        left = right = NULL;
+    }
+};
+*/
+void solve(Node* root, Node*x, Node*&successor,bool &flag){
+        if(root==NULL)
+            return;
+        
+        solve(root->left, x, successor, flag);
+        if(flag){
+            successor=root;
+            flag=0;
+            return;
+        }
+        if(root->data==x->data){
+            flag=1;
+        }
+        solve(root->right, x, successor, flag);
+        
+    }
+
+class Solution{
+  public:
+    // returns the inorder successor of the Node x in BST (rooted at 'root')
+    Node * inOrderSuccessor(Node *root, Node *x)
+    {
+         Node* successor = NULL;
+        bool flag = 0;
+        solve(root, x, successor, flag);
+        return successor;
+    }
+};-
+
+int main()
+{
+    int t;
+    cin>>t;
+    getchar();
+    
+    while(t--)
+    {
+        string s;
+        getline(cin,s);
+        Node* head = buildTree(s);
+        
+        int k;
+        cin>>k;
+        getchar();
+        
+        Node* kNode = search( head, k );
+        Solution obj;
+        Node* suc = obj.inOrderSuccessor(head, kNode);
+        
+        if( suc == NULL ) cout<< "-1";
+        else cout<< suc->data;
+        cout << endl;
+    }
+    
+    return 1;
+}
+// } 
